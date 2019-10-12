@@ -1,0 +1,41 @@
+{% extends 'navbar.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+    <section>
+        <div class="card">
+            <div class="card-body">
+                <h3>Perfil de autor</h3>
+                <fieldset>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>nombre</label>
+                                {{autor.first_name|add_class:"form-control"}}
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                {{autor.last_name|add_class:"form-control"}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>email</label>
+                                {{autor.email|add_class:"form-control"}}
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>se unio</label>
+                                {{autor.fechaRegistro|add_class:"form-control"}}
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </section>
+{% endblock %}

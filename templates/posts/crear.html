@@ -1,0 +1,45 @@
+{% extends 'navbar.html' %}
+{% load widget_tweaks %}
+
+{% block section %}
+    <header class="mt-5 mb-4">
+        <h2 class="d-inline-block">Creacion de post</h2>
+    </header>
+
+
+    <section style="margin-bottom:100px;">
+        <div class="card p-3 shadow-sm">
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{form.media}}
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>titulo</label>
+                                {{form.titulo|add_class:"form-control"}}
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>categoria</label>
+                                {{form.categoria|add_class:"form-control"}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label>descripcion</label>
+                            <div class="form-group">
+                                {{form.descripcion}}
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-outline-primary">
+                        <i class="fa fa-edit"></i> Guardar cambios
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}

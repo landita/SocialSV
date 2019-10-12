@@ -1,0 +1,85 @@
+{% extends 'navbar.html' %}
+
+{% block section %}
+    <header class="mt-5 mb-4">
+        <h2 class="d-inline-block">Mis posts</h2>
+    </header>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titulo</th>
+                <th>Estado</th>
+                <th>Fecha registro</th>
+                <th>Opciones</th>
+            </tr>
+        </thead>
+        <tbody class="text-center">
+            {% for query in queries %}
+                <tr>
+                    <td>{{query.id}}</td>
+                    <td>{{query.titulo}}</td>
+                    <td>
+                        {% if query.estado %}
+                            <p class="text-success">Publicado</p>
+                        {% else %}
+                            <p class="text-danger">No publicado</p>
+                        {% endif %}
+                    </td>
+                    <td>{{query.fechaRegistro}}</td>
+                    <td>
+                        <a href="/posts/editar/{{query.id}}"><i class="fa fa-edit"></i> editar</a>    
+                        <a class="ml-5 text-primary" id="eliminarOpcion" data-id="{{query.id}}"><i class="fa fa-trash" ></i> eliminar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+        $(document).ready(function () {
+            let table = $('.table').DataTable({
+                language: {
+                    emptyTable: 'no hay datos disponibles, pruebe ingresando nuevos registros',
+                    search: 'Buscar',
+                    info: 'mostrando _START_ de _END_ datos',
+                    infoEmpty: '',
+                    paginate: {
+                        previous: 'Anterior',
+                        next: 'Siguiente'
+                    }
+                },
+                select: true,
+                autoWidth:false,
+                pageLength: 5,
+                bLengthChange: false,
+                dom: '<"pull-right"f><"pull-left"l>tip'
+            });
+            $("div.pull-left").html('<a class="btn btn-outline-primary mb-2" href="/posts/crear"><i class="fa fa-plus"></i> agregar nuevo post</a>');
+
+            let eliminar = $('#eliminarOpcion');
+            eliminar.on('click', function(e){
+                bootbox.confirm({
+                    message: "esta seguro de eliminar este registro?",
+                    buttons: {
+                        confirm: {
+                            label: 'Confirmar',
+                            className: 'btn-primary'
+                        },
+                        cancel: {
+                            label: 'Cancelar',
+                            className: 'btn-danger'
+                        }
+                    },
+                    callback: function () {
+                        $.get(`/posts/eliminar/${eliminar.attr('data-id')}`, function(response){
+                          if (response.success) table.row(eliminar.parents("tr")).remove().draw();  
+                        });
+                    }
+                });
+            })
+        });
+    </script>
+{% endblock %}
+    

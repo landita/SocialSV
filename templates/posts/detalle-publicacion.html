@@ -1,0 +1,15 @@
+{% extends 'navbar.html' %}
+
+{% block section %}
+    <section id="post">
+        <h1 class="titulo">{{query.titulo}}</h1>                
+        <div class="card shadow-sm">
+            <div class="card-body mb-2">
+                {{query.descripcion | safe }}<hr>
+                <span class="text-muted float-right">Fecha de publicacion: {{query.fechaRegistro}}</span>
+            </div>
+        </div>
+    </section>
+    {% include 'disqus/comments.html' with url=query.id %}
+
+{% endblock %}

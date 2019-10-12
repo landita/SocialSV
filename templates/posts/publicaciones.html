@@ -1,0 +1,83 @@
+{% extends 'navbar.html' %}
+{% load static from staticfiles %}
+{% load widget_tweaks %}
+
+{% block section %}
+<section class="mt-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <h3>Publicaciones</h3>
+            <div class="publicaciones"></div>
+            <div class="ajaxLoaderDiv" style="display: none">
+                <img src="{% static 'images/ellipsis-preloader.gif' %}" 
+                    width="150px"
+                    style="display: block;margin:auto;"/>
+                <p class="text-center">Cargando...</p>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <h3>Opciones de busqueda</h3>
+            <ul class="list-group position-sticky shadow-sm">
+                <li class="list-group-item mostrarPorFecha" style="cursor:pointer">Mas recientes</li>
+                <li class="list-group-item" style="cursor:pointer">
+                    <label>Buscar</label>
+                    <input type="text" id="mostrarPorBusqueda" class="form-control" placeholder="ingrese su busqueda aqui">
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function() {
+        let publicaciones = document.querySelector('.publicaciones');
+
+        function filtrar(response, publicaciones){
+            for(let data of response){
+                publicaciones.innerHTML = `
+                    <div class="card shadow-sm">
+                        <div class="card-body mb-2">
+                            <h5 class="card-title">${data.titulo}</h5>                
+                            <h6 class="card-subtitle mb-2 text-muted">Categoria: ${data.categoria}</h6>
+                            <h6 class="card-subtitle mb-2 text-muted">Fecha publicacion: ${data.fechaRegistro}</h6>
+                            <a href="/posts/detalle/publicacion/${data.id}" class="card-link"><i class="fa fa-link"></i> ver post completo</a>
+                            <div class="float-right">
+                                <span class="text-muted mr-2">Autor: </span>
+                                <a href="/account/users/autor/${data.autor__id}" class="card-link float-right">${data.autor__email}</a>
+                            </div>
+                        </div>
+                    </div>
+                `
+            }
+        }
+        function listar(){
+            $('.ajaxLoaderDiv').show();
+            $.get('/posts/muro/listar/publicaciones/', function(response){
+                filtrar(response.data, publicaciones);
+                $('.ajaxLoaderDiv').hide();            
+            });
+        }
+        listar();
+
+        $('.mostrarPorFecha').on('click', function(e){
+            publicaciones.innerHTML = '';
+            $('.ajaxLoaderDiv').show();
+            $.get('/posts/muro/filtrar/fecha/', function(response){
+                filtrar(response.data, publicaciones);
+                $('.ajaxLoaderDiv').hide();
+            });
+        })
+        $('#mostrarPorBusqueda').on('keyup', function(e){
+            publicaciones.innerHTML = '';
+            if(this.value === null || this.value === "") listar();
+            else{
+                $('.ajaxLoaderDiv').show();
+                $.get(`/posts/muro/filtrar/busqueda/${this.value}`, function(response){
+                    filtrar(response.data, publicaciones);
+                    $('.ajaxLoaderDiv').hide();
+                });
+            } 
+        })
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'navbar.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+    <section>
+        <div class="card">
+            <div class="card-body">
+                <h3>Perfil de autor</h3>
+                <form method="POST">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>nombre</label>
+                                {{form.first_name|add_class:"form-control"}}
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                {{form.last_name|add_class:"form-control"}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>email</label>
+                                {{form.email|add_class:"form-control"}}
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>contraseña</label>
+                                {{form.email|add_class:"form-control"}}
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-outline-primary btn-block"> <i class="fa fa-user"></i> Editar perfil</button>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load socialaccount %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="card" style="width: 25rem;margin:120px auto;">
+    <div class="card-body">
+      <h5 class="card-title text-center mb-4 mt-3">Social tech <span class="text-danger">&hearts;</span></h5>
+      <form method="POST">
+          {% csrf_token %}
+          <div class="form-group">
+              <label>email</label>
+              {{form.login|attr:"class:form-control"|attr:"placeholder:ejemplo@hotmail.com"}}
+              {% if form.errors %}
+                {% for error in form.non_field_errors %}
+                    <p class="text-danger">{{ error|escape }}</p>
+                {% endfor %}
+              {% endif %}
+          </div>
+          <div class="form-group">
+            <label>contraseña</label>
+            {{form.password|attr:"class:form-control"|attr:"placeholder:contraseña"}}
+          </div>
+          <button type="submit" class="btn btn-outline-primary btn-block mt-4">
+            <i class="fa fa-user"></i> Iniciar sesion</button>
+          <a href="{% provider_login_url 'github' %}" class="btn btn-outline-primary btn-block"><i class="fa fa-github"></i> Github</a>
+          <a href="{% provider_login_url 'facebook' method='oauth2' %}" class="btn btn-outline-primary btn-block"><i class="fa fa-facebook"></i> Facebook</a>
+          <hr>
+          <a class="float-left" href="/account/signup">Registrarse</a>
+          <a class="float-right" href="/account/password/reset">Recuperar contraseña</a>
+      </form>
+    </div>
+  </div>
+{% endblock %}

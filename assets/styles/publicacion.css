@@ -1,0 +1,12 @@
+#post{
+    margin: 80px 0 60px 0;
+}
+h1.titulo{
+    margin-bottom: 50px;
+    text-align: center;
+    color: #2c2c2c;
+    letter-spacing: .05em;
+    text-shadow: 
+      3px 3px 0px #d5d5d5, 
+      2.5px 2.5px 0px rgba(0, 0, 0, 0.2);
+}
