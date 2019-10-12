@@ -92,7 +92,7 @@ WSGI_APPLICATION = 'settings.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'HOST': 'mongodb+srv://landita:DBrealtimePass@cluster0-iahan.mongodb.net/test?retryWrites=true&w=majority',
+        'HOST': 'paste your database link here if you are using a service like mongodb(atlas)',
     }
 }
 
@@ -208,5 +208,5 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 #disqus
-DISQUS_API_KEY = 'tsDY5UjWDObrygr9mgwIA6f2J3AyaioDvD5XDFfWwn2PM48dN70VJClQbb5JlXzc'
+DISQUS_API_KEY = 'paste here your disqus api key'
 DISQUS_WEBSITE_SHORTNAME = 'http://127.0.0.1:8000/'
