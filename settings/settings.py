@@ -180,7 +180,3 @@ LOGIN_REDIRECT_URL = '/posts/'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/account/login'
 ACCOUNT_LOGOUT_ON_GET = True 
 
-
-#disqus
-DISQUS_API_KEY = 'paste here your disqus api key'
-DISQUS_WEBSITE_SHORTNAME = 'http://127.0.0.1:8000/'
